@@ -5,3 +5,7 @@
 #bootstrap-override{
     text-decoration: none;
 }
+
+.dropdown-item{
+    color: black;
+}
