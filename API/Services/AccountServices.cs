@@ -47,12 +47,13 @@ namespace API.Services
 
         public async Task<ActionResult<UserDto>> Login(LoginDTO loginDto){
 
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _context.Users.Include(u => u.Photos).SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
             if(user == null)
                 return new UserDto{
                     username = null,
-                    token = "username"
+                    token = "username",
+                    photoUrl = null
                 };
             
             using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -63,13 +64,15 @@ namespace API.Services
                 if(computedHash[i] != user.PasswordHash[i])
                     return new UserDto{
                         username = null,
-                        token = "password"
+                        token = "password",
+                        photoUrl = null
                     };
             }
 
             return new UserDto{
                 username = user.UserName,
-                token = _tokenService.CreateToken(user)
+                token = _tokenService.CreateToken(user),
+                photoUrl = user.Photos?.FirstOrDefault(x => x.IsMain)?.Url
             };
         }
 
