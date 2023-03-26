@@ -23,6 +23,7 @@ namespace API.Extensions
             services.AddScoped<IAccountServices, AccountServices>();
             services.AddScoped<IUserRepository, UserRepositoryServices>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddScoped<LogUserActivity>();
 
             return services;
         }

@@ -42,7 +42,8 @@ namespace API.Services
             return new UserDto{
                 username = user.UserName,
                 token = _tokenService.CreateToken(user),
-                knownAs =user.KnownAs
+                knownAs =user.KnownAs,
+                gender = user.Gender
             };
         }
 
@@ -59,7 +60,8 @@ namespace API.Services
                     username = null,
                     token = "username",
                     photoUrl = null,
-                    knownAs = null
+                    knownAs = null,
+                    gender = null
                 };
             
             using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -72,7 +74,8 @@ namespace API.Services
                         username = null,
                         token = "password",
                         photoUrl = null,
-                        knownAs = null
+                        knownAs = null,
+                        gender = null
                     };
             }
 
@@ -80,7 +83,8 @@ namespace API.Services
                 username = user.UserName,
                 token = _tokenService.CreateToken(user),
                 photoUrl = user.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
-                knownAs = user.KnownAs
+                knownAs = user.KnownAs,
+                gender = user.Gender
             };
         }
 
