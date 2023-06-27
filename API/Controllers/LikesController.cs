@@ -28,6 +28,8 @@ namespace API.Controllers
             if(likedUser is null) return NotFound();
             if(sourceUser.UserName.Equals(likedUser.UserName)) return BadRequest("You cannot like yourself");
 
+            if(sourceUser.LikedUsers.Select(x => x.SourceUserId == sourceUser.Id && x.TargetUserId == likedUser.Id).Count() > 0) return Ok();
+
             var userLike = new UserLike{
                 SourceUserId = sourceUserId,
                 TargetUserId = likedUser.Id

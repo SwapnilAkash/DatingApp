@@ -25,6 +25,7 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<LogUserActivity>();
             services.AddScoped<ILikeRepository, LikeRepositoryService>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
 
             return services;
         }

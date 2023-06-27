@@ -8,7 +8,7 @@ namespace API.Services
     {
         //find users
         Task<UserLike> GetUserLike(int sourceUserId, int targetUserId); 
-        //Check if user has already been liked by other users  
+        //Return User with likes
         Task<AppUser> GetUserWithLikes(int userId); 
         //find list of users that current user has liked or the list of users liked by current user
         Task<PagedList<LikeDTO>> GetUserLikes(LikesParams likeParams); 
